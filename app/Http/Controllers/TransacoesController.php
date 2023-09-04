@@ -27,9 +27,10 @@ class TransacoesController extends Controller
         $transacao->conta_id = $request->conta_id;
         $transacao->valor = $request->valor;
 
-        $transacao->save();
+        $response = Transacoes::saveTransacao($transacao);
 
-        return response()->json($transacao);
+        return response('', 201)
+            ->header('Content-Type', 'application/json');
 
     }
 
