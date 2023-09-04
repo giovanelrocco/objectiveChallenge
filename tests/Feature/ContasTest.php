@@ -15,7 +15,9 @@ class ContasTest extends TestCase
             ->get('/api/contas');
 
         $response->assertStatus(200);
-        // $response->assertJsonFragment($conta);
+        $response->assertJsonFragment(["username" => $conta->username]);
+        $response->assertJsonFragment(["saldo" => $conta->saldo]);
+
     }
 
     public function test_api_conta_is_showing(): void
@@ -26,7 +28,9 @@ class ContasTest extends TestCase
             ->get('/api/conta');
 
         $response->assertStatus(200);
-        // $response->assertJsonFragment($conta);
+        $response->assertJsonFragment(["username" => $conta->username]);
+        $response->assertJsonFragment(["saldo" => $conta->saldo]);
+
     }
 
     public function test_api_conta_is_creating(): void
@@ -40,9 +44,9 @@ class ContasTest extends TestCase
             ->put('/api/conta', $conta);
 
         $response->assertStatus(200);
-        // $response->username == $conta['username'];
-        // $response->saldo == $conta['saldo'];
-        // $response->assertJsonFragment($conta);
+        $response->assertJsonFragment(["username" => $conta['username']]);
+        $response->assertJsonFragment(["saldo" => $conta['saldo']]);
+
     }
 
     public function test_api_conta_is_updating(): void
@@ -58,8 +62,8 @@ class ContasTest extends TestCase
             ->patch('/api/conta/' . $conta->id, $conta_update);
 
         $response->assertStatus(200);
-        // $response->username == $conta['username'];
-        // $response->saldo == 1100.00;
-        // $response->assertJsonFragment($conta);
+        $response->assertJsonFragment(["username" => $conta_update['username']]);
+        $response->assertJsonFragment(["saldo" => $conta_update['saldo'] + $conta->saldo]);
+
     }
 }
