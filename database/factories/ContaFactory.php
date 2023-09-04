@@ -18,7 +18,7 @@ class ContaFactory extends Factory
     {
         return [
             'username' => fake()->name(),
-            'saldo' => now(),
+            'saldo' => 500.00,
         ];
     }
 }
