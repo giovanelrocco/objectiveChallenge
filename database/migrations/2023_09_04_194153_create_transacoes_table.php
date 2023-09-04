@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('transacoes', function (Blueprint $table) {
             $table->id();
             $table->enum('forma_pagamento', ['P', 'C', 'D']);
-            $table->integer('conta_id');
+            $table->unsignedBigInteger('conta_id');
             $table->float('valor', 8, 2);
             $table->timestamps();
+            $table->foreign('conta_id')->references('id')->on('contas');
         });
     }
 
