@@ -25,7 +25,7 @@ class Transacoes extends Model
 
         } catch (\Illuminate\Database\QueryException $ex) {
             DB::rollBack();
-            throw new \App\Exceptions\TransacoesException($ex->getMessage());
+            throw new \App\Exceptions\TransacoesException('Erro ao salvar a informação');
 
         }
     }

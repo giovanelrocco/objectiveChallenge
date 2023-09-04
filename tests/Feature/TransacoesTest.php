@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Conta;
 use App\Models\Transacoes;
 use Tests\TestCase;
 
@@ -9,42 +10,44 @@ class TransacoesTest extends TestCase
 {
     public function test_api_transacoes_is_showing(): void
     {
-        $transacao = Transacoes::factory()->create();
+        $conta = Conta::factory()->create();
+        $transacao = Transacoes::factory()->create(['conta_id' => $conta->id]);
 
         $response = $this
             ->get('/api/transacoes');
 
         $response->assertStatus(200);
-        // $response->assertJsonFragment($transacao);
+        $response->assertJsonFragment(['id' => $transacao->id, 'conta_id' => $conta->id]);
+
     }
 
     public function test_api_transacao_is_showing(): void
     {
-        $transacao = Transacoes::factory()->create();
+        $conta = Conta::factory()->create();
+        $transacao = Transacoes::factory()->create(['conta_id' => $conta->id]);
 
         $response = $this
             ->get('/api/transacao');
 
         $response->assertStatus(200);
-        // $response->assertJsonFragment($transacao);
+        $response->assertJsonFragment(['id' => $transacao->id, 'conta_id' => $conta->id]);
+
     }
 
     public function test_api_transacao_is_creating(): void
     {
-        $transacao = [
-            'conta_id' => 1,
-            'forma_pagamento' => 'D',
-            'valor' => 600.00,
+        $conta = Conta::factory()->create();
 
+        $transacao = [
+            'conta_id' => $conta->id,
+            'forma_pagamento' => 'D',
+            'valor' => fake()->randomFloat(4, 0, 490),
         ];
 
         $response = $this
             ->put('/api/transacao', $transacao);
 
-        $response->assertStatus(200);
-        // $response->username == $transacao['username'];
-        // $response->saldo == $transacao['saldo'];
-        // $response->assertJsonFragment($transacao);
+        $response->assertStatus(201);
     }
 
     // public function test_api_transacao_is_updating(): void
