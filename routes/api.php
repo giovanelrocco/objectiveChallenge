@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContasController;
+use App\Http\Controllers\TransacoesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,9 @@ Route::get('/conta', [ContasController::class, 'index']);
 Route::get('/conta/{id}', [ContasController::class, 'show']);
 Route::put('/conta', [ContasController::class, 'store']);
 Route::patch('/conta/{id}', [ContasController::class, 'update']);
+
+Route::get('/transacoes', [TransacoesController::class, 'index']);
+Route::get('/transacao', [TransacoesController::class, 'index']);
+Route::get('/transacao/{id}', [TransacoesController::class, 'show']);
+Route::put('/transacao', [TransacoesController::class, 'store']);
+// Route::patch('/transacao/{id}', [TransacoesController::class, 'update']);

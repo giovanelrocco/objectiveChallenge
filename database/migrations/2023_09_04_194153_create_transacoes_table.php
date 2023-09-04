@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('transacoes', function (Blueprint $table) {
             $table->id();
-            $table->char('forma_pagamento');
-            $table->integer('conta');
+            $table->enum('forma_pagamento', ['P', 'C', 'D']);
+            $table->integer('conta_id');
             $table->float('valor', 8, 2);
             $table->timestamps();
         });

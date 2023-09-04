@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTransacoesRequest;
-use App\Http\Requests\UpdateTransacoesRequest;
 use App\Models\Transacoes;
+use Illuminate\Http\Request;
 
 class TransacoesController extends Controller
 {
@@ -13,31 +12,53 @@ class TransacoesController extends Controller
      */
     public function index()
     {
-        //
+        $transacoes = Transacoes::all();
+        return response()->json($transacoes);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTransacoesRequest $request)
+    public function store(Request $request)
     {
-        //
+        $transacao = new Transacoes;
+
+        $transacao->forma_pagamento = $request->forma_pagamento;
+        $transacao->conta_id = $request->conta_id;
+        $transacao->valor = $request->valor;
+
+        $transacao->save();
+
+        return response()->json($transacao);
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Transacoes $transacoes)
+    public function show(Transacoes $transacoes, int $id)
     {
-        //
+        $transacao = Transacoes::find($id);
+
+        return response()->json($transacao);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTransacoesRequest $request, Transacoes $transacoes)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(Request $request)
+    // {
+    //     $transacao = Transacoes::find($request->id);
+
+    //     $transacao->forma_pagamento = $request->forma_pagamento;
+    //     $transacao->conta_id = $request->conta_id;
+    //     $transacao->valor += $request->valor;
+
+    //     $transacao->save();
+
+    //     return response()->json($transacao);
+
+    // }
 
 }
