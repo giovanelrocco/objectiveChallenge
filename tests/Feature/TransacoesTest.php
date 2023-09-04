@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Conta;
 use App\Models\Transacoes;
+use PHPUnit\Framework\assertTrue;
 use Tests\TestCase;
 
 class TransacoesTest extends TestCase
@@ -36,18 +37,21 @@ class TransacoesTest extends TestCase
 
     public function test_api_transacao_is_creating(): void
     {
-        $conta = Conta::factory()->create();
+        $conta = Conta::factory()->create(['saldo' => 600]);
+        $valor = fake()->randomFloat(4, 0, 490);
 
         $transacao = [
             'conta_id' => $conta->id,
             'forma_pagamento' => 'D',
-            'valor' => fake()->randomFloat(4, 0, 490),
+            'valor' => $valor,
         ];
 
         $response = $this
             ->put('/api/transacao', $transacao);
 
         $response->assertStatus(201);
+        $conta_updated = Conta::find($conta->id);
+        $this->assertTrue($conta_updated->saldo == 600 - $valor);
     }
 
     // public function test_api_transacao_is_updating(): void
