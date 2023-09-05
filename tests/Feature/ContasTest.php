@@ -10,7 +10,17 @@ class ContasTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_api_contas_is_showing(): void
+    public function test_api_contas_show_empty_list(): void
+    {
+        $response = $this
+            ->get('/api/contas');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(0);
+
+    }
+
+    public function test_api_contas_show_list_with_content(): void
     {
         $conta = Conta::factory()->create();
 
@@ -18,12 +28,13 @@ class ContasTest extends TestCase
             ->get('/api/contas');
 
         $response->assertStatus(200);
+        $response->assertJsonCount(1);
         $response->assertJsonFragment(["username" => $conta->username]);
         $response->assertJsonFragment(["saldo" => $conta->saldo]);
 
     }
 
-    public function test_api_conta_is_showing(): void
+    public function test_api_conta_show_list_with_content(): void
     {
         $conta = Conta::factory()->create();
 
@@ -36,7 +47,29 @@ class ContasTest extends TestCase
 
     }
 
-    public function test_api_conta_is_creating(): void
+    public function test_api_conta_show_not_found(): void
+    {
+        $response = $this
+            ->get('/api/conta/' . fake()->numberBetween(1000, 2000));
+
+        $response->assertStatus(404);
+
+    }
+
+    public function test_api_conta_show_by_id(): void
+    {
+        $conta = Conta::factory()->create();
+
+        $response = $this
+            ->get('/api/conta/' . $conta->id);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment(["username" => $conta->username]);
+        $response->assertJsonFragment(["saldo" => $conta->saldo]);
+
+    }
+
+    public function test_api_conta_create(): void
     {
         $conta = [
             'username' => fake()->name(),
@@ -46,13 +79,12 @@ class ContasTest extends TestCase
         $response = $this
             ->put('/api/conta', $conta);
 
-        $response->assertStatus(200);
-        $response->assertJsonFragment(["username" => $conta['username']]);
-        $response->assertJsonFragment(["saldo" => $conta['saldo']]);
+        $response->assertStatus(201);
+        $response->assertContent('');
 
     }
 
-    public function test_api_conta_is_updating(): void
+    public function test_api_conta_update(): void
     {
         $conta = Conta::factory()->create();
 
@@ -64,9 +96,8 @@ class ContasTest extends TestCase
         $response = $this
             ->patch('/api/conta/' . $conta->id, $conta_update);
 
-        $response->assertStatus(200);
-        $response->assertJsonFragment(["username" => $conta_update['username']]);
-        $response->assertJsonFragment(["saldo" => $conta_update['saldo'] + $conta->saldo]);
+        $response->assertStatus(204);
+        $response->assertContent('');
 
     }
 }

@@ -41,6 +41,11 @@ class TransacoesController extends Controller
     {
         $transacao = Transacoes::find($id);
 
+        if (!$transacao) {
+            throw new \App\Exceptions\TransacoesException('Conta não encontrada');
+
+        }
+
         return response()->json($transacao);
 
     }
