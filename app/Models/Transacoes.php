@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class Transacoes extends Model
 {
+    const METODO_PAGAMENTO_CREDITO = "C";
+    const METODO_PAGAMENTO_DEBITO = "D";
+    const METODO_PAGAMENTO_PIX = "P";
+
+    const TAXA_METODO_PAGAMENTO_CREDITO = 0.05;
+    const TAXA_METODO_PAGAMENTO_DEBITO = 0.03;
+    const TAXA_METODO_PAGAMENTO_PIX = 0;
+
     use HasFactory;
 
     public static function saveTransacao(Transacoes $transacao)
@@ -16,7 +24,10 @@ class Transacoes extends Model
             DB::beginTransaction();
 
             $conta = new Conta;
-            $conta->updateSaldoConta($transacao->conta_id, $transacao->valor);
+            $saldo_debitar = $transacao->calcularSaldoDebitar($transacao->forma_pagamento, $transacao->valor);
+            $conta->updateSaldoConta($transacao->conta_id, $saldo_debitar);
+            $transacao->taxa_percentual = $transacao->buscarTaxaPercentual($transacao->forma_pagamento);
+            $transacao->valor_total = $saldo_debitar;
             $transacao->save();
 
             DB::commit();
@@ -28,5 +39,48 @@ class Transacoes extends Model
             throw new \App\Exceptions\TransacoesException('Erro ao salvar a informação');
 
         }
+    }
+
+    public function calcularSaldoDebitar(string $forma_pagamento, float $valor_transacao): float
+    {
+        $saldo_debitar = $valor_transacao;
+        switch ($forma_pagamento) {
+            case Transacoes::METODO_PAGAMENTO_CREDITO:
+                $saldo_debitar += $valor_transacao * Transacoes::TAXA_METODO_PAGAMENTO_CREDITO;
+                break;
+            case Transacoes::METODO_PAGAMENTO_DEBITO:
+                $saldo_debitar += $valor_transacao * Transacoes::TAXA_METODO_PAGAMENTO_DEBITO;
+                break;
+            case Transacoes::METODO_PAGAMENTO_PIX:
+                $saldo_debitar = $valor_transacao;
+                break;
+
+            default:
+                throw new \App\Exceptions\TransacoesException('Método de pagamento não encontrado');
+                break;
+        }
+
+        return $saldo_debitar;
+    }
+
+    public function buscarTaxaPercentual(string $forma_pagamento): float
+    {
+        switch ($forma_pagamento) {
+            case Transacoes::METODO_PAGAMENTO_CREDITO:
+                $taxa_percentual = Transacoes::TAXA_METODO_PAGAMENTO_CREDITO;
+                break;
+            case Transacoes::METODO_PAGAMENTO_DEBITO:
+                $taxa_percentual = Transacoes::TAXA_METODO_PAGAMENTO_DEBITO;
+                break;
+            case Transacoes::METODO_PAGAMENTO_PIX:
+                $taxa_percentual = Transacoes::TAXA_METODO_PAGAMENTO_PIX;
+                break;
+
+            default:
+                throw new \App\Exceptions\TransacoesException('Método de pagamento não encontrado');
+                break;
+        }
+
+        return $taxa_percentual;
     }
 }
