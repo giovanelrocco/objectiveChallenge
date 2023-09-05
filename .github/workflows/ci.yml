@@ -7,7 +7,6 @@ jobs:
     env:
       DB_DATABASE: objectiveChallenge
       DB_USER: root
-      DB_PASSWORD:
 
     # Docs: https://docs.github.com/en/actions/using-containerized-services
     services:
