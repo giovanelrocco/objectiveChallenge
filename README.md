@@ -1,3 +1,5 @@
+[![Testing Laravel with MySQL](https://github.com/giovanelrocco/objectiveChallenge/actions/workflows/ci.yml/badge.svg)](https://github.com/giovanelrocco/objectiveChallenge/actions/workflows/ci.yml)
+
 ## About Project
 
 A bank management system by API with two endpoints, /api/conta and /api/transacoes.
