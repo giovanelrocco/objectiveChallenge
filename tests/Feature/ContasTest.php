@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Conta;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ContasTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_api_contas_is_showing(): void
     {
         $conta = Conta::factory()->create();

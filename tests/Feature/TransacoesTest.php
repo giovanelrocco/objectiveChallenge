@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Conta;
 use App\Models\Transacoes;
-use PHPUnit\Framework\assertTrue;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TransacoesTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_api_transacoes_is_showing(): void
     {
         $conta = Conta::factory()->create();
@@ -37,8 +39,8 @@ class TransacoesTest extends TestCase
 
     public function test_api_transacao_is_creating(): void
     {
-        $conta = Conta::factory()->create(['saldo' => 600]);
-        $valor = fake()->randomFloat(4, 0, 490);
+        $conta = Conta::factory()->create(['saldo' => 600.00]);
+        $valor = fake()->randomFloat(2, 0, 490);
 
         $transacao = [
             'conta_id' => $conta->id,
@@ -51,7 +53,7 @@ class TransacoesTest extends TestCase
 
         $response->assertStatus(201);
         $conta_updated = Conta::find($conta->id);
-        $this->assertTrue($conta_updated->saldo == 600 - $valor);
+        $this->assertTrue($conta_updated->saldo == 600.00 - $valor);
     }
 
     // public function test_api_transacao_is_updating(): void
