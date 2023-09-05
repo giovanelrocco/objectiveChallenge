@@ -5,21 +5,23 @@ A bank management system by API with two endpoints, /api/conta and /api/transaco
 ## Requirements
 
 Make sure you have installed in your computer 
-    MacOS you can use <a href="https://herd.laravel.com/">HERD</a> and <a href="https://dbngin.com/">DBngin</a>
-    Linux you need <a href="https://www.php.net/manual/en/install.php">PHP</a>, <a href="https://getcomposer.org/">Composer</a> and Mysql
+    MacOS you can use [HERD] (https://herd.laravel.com/) and [DBngin] (https://dbngin.com/)
+    Linux you need [PHP] (https://www.php.net/manual/en/install.php), [Composer] (https://getcomposer.org/) and Mysql
 
 
 ## Clone Repo
 
-git clone git@github.com:giovanelrocco/objectiveChallenge.git
+Run command **git clone git@github.com:giovanelrocco/objectiveChallenge.git**
 
 ## Run Migrations
 
-Run command [php artisan migrate] to run all migrations avaliabe
+Run command **php artisan migrate** to run all migrations avaliabe
 
 ## Run project
 
-To run the project use [php artisan serve]
+To run the project use **php artisan serve**
+
+## About Laravel
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
@@ -30,7 +32,6 @@ To run the project use [php artisan serve]
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
