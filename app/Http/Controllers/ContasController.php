@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Conta;
 use Illuminate\Http\Request;
 
-// use App\Http\Requests\StoreContaRequest;
-// use App\Http\Requests\UpdateContaRequest;
-
 class ContasController extends Controller
 {
     /**
