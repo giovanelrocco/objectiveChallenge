@@ -20,6 +20,8 @@ class TransacoesFactory extends Factory
             'conta_id' => 1,
             'valor' => 50.00,
             'forma_pagamento' => 'D',
+            'valor_total' => 52.50,
+            'taxa_percentual' => 0.05,
         ];
     }
 }
