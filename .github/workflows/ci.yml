@@ -8,7 +8,7 @@ jobs:
     env:
       DB_DATABASE: objectiveChallenge
       DB_USER: root
-      DB_PASSWORD: ${{ secrets.DB_PASS }}
+      DB_PASSWORD:
 
     # Docs: https://docs.github.com/en/actions/using-containerized-services
     services:
@@ -16,7 +16,6 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_ROOT_PASSWORD:
           MYSQL_DATABASE: objectiveChallenge
         ports:
           - 3306/tcp
