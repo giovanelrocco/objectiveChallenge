@@ -13,9 +13,13 @@ Make sure you have installed in your computer
 
 Run command `git clone git@github.com:giovanelrocco/objectiveChallenge.git`
 
+## Run Composer
+
+Run command `composer update`
+
 ## Run Migrations
 
-Run command `php artisan migrate` to run all migrations avaliabe
+Run command `php artisan migrate`
 
 ## Run project
 
