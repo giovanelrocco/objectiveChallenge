@@ -5,21 +5,21 @@ A bank management system by API with two endpoints, /api/conta and /api/transaco
 ## Requirements
 
 Make sure you have installed in your computer 
-    MacOS you can use [HERD](https://herd.laravel.com/) and [DBngin](https://dbngin.com/)
-    Linux you need [PHP](https://www.php.net/manual/en/install.php), [Composer](https://getcomposer.org/) and Mysql
+    -MacOS you can use [HERD](https://herd.laravel.com/) and [DBngin](https://dbngin.com/)
+    -Linux you need [PHP](https://www.php.net/manual/en/install.php), [Composer](https://getcomposer.org/) and Mysql
 
 
 ## Clone Repo
 
-Run command `**git clone git@github.com:giovanelrocco/objectiveChallenge.git**`
+Run command `git clone git@github.com:giovanelrocco/objectiveChallenge.git`
 
 ## Run Migrations
 
-Run command `**php artisan migrate**` to run all migrations avaliabe
+Run command `php artisan migrate` to run all migrations avaliabe
 
 ## Run project
 
-To run the project use `**php artisan serve**`
+To run the project use `php artisan serve`
 
 ## About Laravel
 
