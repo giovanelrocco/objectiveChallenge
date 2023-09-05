@@ -28,7 +28,9 @@ class ContasController extends Controller
 
         $conta->save();
 
-        return response()->json($conta);
+        return response('', 201)
+            ->header('Content-Type', 'application/json');
+
     }
 
     /**
@@ -37,6 +39,10 @@ class ContasController extends Controller
     public function show(Conta $conta, int $id)
     {
         $conta = Conta::find($id);
+
+        if (!$conta) {
+            throw new \App\Exceptions\ContaException('Conta não encontrada');
+        }
 
         return response()->json($conta);
     }
@@ -53,7 +59,8 @@ class ContasController extends Controller
 
         $conta->save();
 
-        return response()->json($conta);
+        return response('', 204)
+            ->header('Content-Type', 'application/json');
 
     }
 }

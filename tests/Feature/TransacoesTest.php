@@ -11,7 +11,17 @@ class TransacoesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_api_transacoes_is_showing(): void
+    public function test_api_transacoes_show_empty_list(): void
+    {
+        $response = $this
+            ->get('/api/transacoes');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(0);
+
+    }
+
+    public function test_api_transacoes_show_list_with_content(): void
     {
         $conta = Conta::factory()->create();
         $transacao = Transacoes::factory()->create(['conta_id' => $conta->id]);
@@ -24,7 +34,7 @@ class TransacoesTest extends TestCase
 
     }
 
-    public function test_api_transacao_is_showing(): void
+    public function test_api_transacao_show_list_with_content(): void
     {
         $conta = Conta::factory()->create();
         $transacao = Transacoes::factory()->create(['conta_id' => $conta->id]);
@@ -37,7 +47,16 @@ class TransacoesTest extends TestCase
 
     }
 
-    public function test_api_transacao_is_creating(): void
+    public function test_api_transacao_show_not_found(): void
+    {
+        $response = $this
+            ->get('/api/transacao/' . fake()->numberBetween(1000, 2000));
+
+        $response->assertStatus(404);
+
+    }
+
+    public function test_api_transacao_create(): void
     {
         $conta = Conta::factory()->create(['saldo' => 600.00]);
         $valor = fake()->randomFloat(2, 0, 490);
@@ -54,6 +73,21 @@ class TransacoesTest extends TestCase
         $response->assertStatus(201);
         $conta_updated = Conta::find($conta->id);
         $this->assertTrue($conta_updated->saldo == 600.00 - $valor);
+    }
+
+    public function test_api_transacao_show_by_id(): void
+    {
+        $conta = Conta::factory()->create();
+        $transacao = Transacoes::factory()->create(['conta_id' => $conta->id]);
+
+        $response = $this
+            ->get('/api/transacao/' . $transacao->id);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment(["conta_id" => $conta->id]);
+        $response->assertJsonFragment(["forma_pagamento" => $transacao->forma_pagamento]);
+        $response->assertJsonFragment(["id" => $transacao->id]);
+
     }
 
     // public function test_api_transacao_is_updating(): void
