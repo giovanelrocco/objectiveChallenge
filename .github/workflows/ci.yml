@@ -1,8 +1,6 @@
 name: Testing Laravel with MySQL
 on: 
-  pull_request:
-    branches-ignore: 
-      - main
+  [push]
 jobs:
   laravel:
     name: Laravel (PHP ${{ matrix.php-versions }})
