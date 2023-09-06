@@ -1,5 +1,8 @@
 name: Testing Laravel with MySQL
-on: [push]
+on: 
+  pull_request:
+    branches-ignore: 
+      - main
 jobs:
   laravel:
     name: Laravel (PHP ${{ matrix.php-versions }})
@@ -77,6 +80,7 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
       - name: Test with phpunit
-        run: vendor/bin/phpunit --coverage-text
+        run: vendor/bin/phpunit --coverage-text;
+          vendor/bin/phpunit --configuration generated.xml --coverage-html
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
