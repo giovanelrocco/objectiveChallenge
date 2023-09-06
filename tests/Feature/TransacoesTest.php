@@ -101,6 +101,8 @@ class TransacoesTest extends TestCase
         $saldo_atualizado = round($conta->saldo - $valor_debitar, 4);
 
         $this->assertTrue($conta_updated->saldo == $saldo_atualizado);
+        $this->assertTrue($conta_updated->saldo != $saldo_atualizado);
+
     }
 
     public function test_api_transacao_debito_create(): void
