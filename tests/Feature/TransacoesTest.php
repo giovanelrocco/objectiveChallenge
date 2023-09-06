@@ -127,6 +127,30 @@ class TransacoesTest extends TestCase
         $this->assertTrue($conta_updated->saldo == $saldo_atualizado);
     }
 
+    public function test_api_transacao_estorno_create(): void
+    {
+        $conta = Conta::factory()->create(['saldo' => 600.00]);
+        $valor = fake()->randomFloat(2, 0, 490);
+
+        $transacao = [
+            'conta_id' => $conta->id,
+            'forma_pagamento' => Transacoes::METODO_PAGAMENTO_ESTORNO,
+            'valor' => $valor,
+        ];
+
+        $response = $this
+            ->put('/api/transacao', $transacao);
+
+        $response->assertStatus(201);
+
+        $conta_updated = Conta::find($conta->id);
+
+        $valor_debitar = $valor * (1 + Transacoes::TAXA_METODO_PAGAMENTO_ESTORNO);
+        $saldo_atualizado = round($conta->saldo + $valor_debitar, 4);
+
+        $this->assertTrue($conta_updated->saldo == $saldo_atualizado);
+    }
+
     public function test_api_transacao_show_by_id(): void
     {
         $conta = Conta::factory()->create();
