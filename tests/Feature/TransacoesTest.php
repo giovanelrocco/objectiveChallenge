@@ -142,21 +142,4 @@ class TransacoesTest extends TestCase
 
     }
 
-    // public function test_api_transacao_is_updating(): void
-    // {
-    //     $transacao = Transacoes::factory()->create();
-
-    //     $transacao_update = [
-    //         'username' => fake()->name(),
-    //         'saldo' => 50.00,
-    //     ];
-
-    //     $response = $this
-    //         ->patch('/api/transacao/' . $transacao->id, $transacao_update);
-
-    //     $response->assertStatus(200);
-    //     // $response->username == $transacao['username'];
-    //     // $response->saldo == 1100.00;
-    //     // $response->assertJsonFragment($transacao);
-    // }
 }
