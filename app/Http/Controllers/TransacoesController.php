@@ -50,21 +50,4 @@ class TransacoesController extends Controller
 
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request)
-    // {
-    //     $transacao = Transacoes::find($request->id);
-
-    //     $transacao->forma_pagamento = $request->forma_pagamento;
-    //     $transacao->conta_id = $request->conta_id;
-    //     $transacao->valor += $request->valor;
-
-    //     $transacao->save();
-
-    //     return response()->json($transacao);
-
-    // }
-
 }

@@ -30,4 +30,3 @@ Route::get('/transacoes', [TransacoesController::class, 'index']);
 Route::get('/transacao', [TransacoesController::class, 'index']);
 Route::get('/transacao/{id}', [TransacoesController::class, 'show']);
 Route::put('/transacao', [TransacoesController::class, 'store']);
-// Route::patch('/transacao/{id}', [TransacoesController::class, 'update']);
